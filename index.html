@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Maverick Administrators</title>
-<meta name="description" content="Maverick Administrators agency form portal — look up your agency code, review state-specific singleton policy rates, and open the application form." />
+<title>Surrogacy Application Form Portal | Maverick Administrators</title>
+<meta name="description" content="Maverick Administrators Surrogacy Application Form Portal — look up your agency code, review state-specific singleton policy rates, and open the correct application form." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
@@ -58,37 +58,28 @@
   /* Header */
   .header {
     text-align: center;
-    padding: 8px 4px 8px;
+    padding: 6px 4px 10px;
   }
 
   .brand-mark {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 18px;
-    color: var(--navy);
+    margin: 0 auto 24px;
   }
 
-  .brand-mark svg {
-    width: 36px;
-    height: 36px;
-  }
-
-  .brand-mark .brand-word {
-    font-family: 'DM Serif Display', Georgia, serif;
-    font-size: 14px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--navy);
+  .brand-logo {
+    width: min(360px, 78vw);
+    height: auto;
+    display: block;
   }
 
   h1 {
     font-family: 'DM Serif Display', Georgia, serif;
     font-weight: 400;
-    font-size: clamp(34px, 5vw, 44px);
+    font-size: clamp(32px, 5vw, 44px);
     line-height: 1.1;
-    margin: 0 0 12px;
+    margin: 0 0 14px;
     color: var(--navy);
     letter-spacing: -0.01em;
   }
@@ -97,7 +88,7 @@
     font-size: 16px;
     color: var(--muted);
     margin: 0 auto;
-    max-width: 460px;
+    max-width: 520px;
   }
 
   /* Card */
@@ -530,7 +521,10 @@
       border-radius: 18px;
     }
     h1 {
-      font-size: 32px;
+      font-size: 30px;
+    }
+    .brand-logo {
+      width: min(300px, 84vw);
     }
     table.rates {
       font-size: 13px;
@@ -551,15 +545,11 @@
 <body>
   <main class="page" id="page">
     <header class="header">
-      <div class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M8 38 L18 12 L24 28 L30 12 L40 38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="24" cy="40" r="2" fill="#c8a96e"/>
-        </svg>
-        <span class="brand-word">Maverick</span>
+      <div class="brand-mark">
+        <img class="brand-logo" src="maverick-administrators-logo.jpg" alt="Maverick Administrators" width="2597" height="415" />
       </div>
-      <h1>Maverick Administrators</h1>
-      <p class="subtitle">Enter your agency name and press Enter to get started.</p>
+      <h1>Surrogacy Application Form Portal</h1>
+      <p class="subtitle">Enter your agency name and press Enter to retrieve your agency code, review your issuing-state rates, and open the correct application form.</p>
     </header>
 
     <!-- Search card -->
