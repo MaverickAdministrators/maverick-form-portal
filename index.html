@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Surrogacy Application Form Portal | Maverick Administrators</title>
-<meta name="description" content="Maverick Administrators Surrogacy Application Form Portal — look up your agency code, review state-specific singleton policy rates, and open the correct application form." />
+<title>Maverick Administrators — IFI Portal</title>
+<meta name="description" content="Maverick Administrators Newborn Medical Contractual Liability Insurance Portal — look up your agency code, review state-specific singleton policy rates, and open the correct application form." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
@@ -47,7 +47,7 @@
   }
 
   .page {
-    max-width: 660px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 48px 20px 80px;
     display: flex;
@@ -69,8 +69,9 @@
   }
 
   .brand-logo {
-    width: min(360px, 78vw);
-    height: auto;
+    height: 48px;
+    width: auto;
+    max-width: min(360px, 78vw);
     display: block;
   }
 
@@ -82,6 +83,24 @@
     margin: 0 0 14px;
     color: var(--navy);
     letter-spacing: -0.01em;
+  }
+
+  h1 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .broker-badge {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
   }
 
   .subtitle {
@@ -292,7 +311,7 @@
   table.rates {
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
+    font-size: 15px;
     font-variant-numeric: tabular-nums;
     min-width: 560px;
   }
@@ -524,7 +543,9 @@
       font-size: 30px;
     }
     .brand-logo {
-      width: min(300px, 84vw);
+      height: 48px;
+      width: auto;
+      max-width: min(300px, 84vw);
     }
     table.rates {
       font-size: 13px;
@@ -546,15 +567,16 @@
   <main class="page" id="page">
     <header class="header">
       <div class="brand-mark">
-        <img class="brand-logo" src="maverick-administrators-logo.jpg" alt="Maverick Administrators" width="2597" height="415" />
+        <img class="brand-logo" src="logo_maverick.png" alt="Maverick Administrators" width="2597" height="415" />
       </div>
-      <h1>Surrogacy Application Form Portal</h1>
+      <h1>Newborn Medical Contractual<br><em>Liability Insurance Portal</em></h1>
+      <div class="broker-badge">IFI</div>
       <p class="subtitle">Enter your agency name and press Enter to retrieve your agency code, review your issuing-state rates, and open the correct application form.</p>
     </header>
 
     <!-- Search card -->
     <section class="card" aria-labelledby="search-label">
-      <label for="agency-input" class="search-label" id="search-label">Agency lookup</label>
+      <label for="agency-input" class="search-label" id="search-label">Surrogacy Agency Lookup</label>
       <div class="search-wrap">
         <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
@@ -627,25 +649,13 @@
     <!-- Form selector card -->
     <section class="card selector-card hidden" id="selector-card">
       <h3>Open your application form</h3>
-      <p class="selector-sub">Choose your policy type and carrier, then open the form in a new tab.</p>
+      <p class="selector-sub">Choose your policy type, then open the form in a new tab.</p>
 
       <div class="field">
         <span class="field-label">Policy type</span>
         <div class="seg" role="group" aria-label="Policy type">
           <button type="button" data-policy="Singleton" id="btn-singleton">Singleton</button>
           <button type="button" data-policy="Split Embryo" id="btn-split">Split Embryo</button>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="field-label" for="carrier">Carrier</label>
-        <div class="select-wrap">
-          <select id="carrier" aria-label="Carrier">
-            <option value="">Select a carrier…</option>
-            <option value="IFI">IFI</option>
-            <option value="ART Risk">ART Risk</option>
-            <option value="Whillock">Whillock</option>
-          </select>
         </div>
       </div>
 
@@ -855,17 +865,18 @@
   };
 
   const forms = {
-    "Singleton|IFI": "https://su007.share-na2.hsforms.com/2PXNvN9ySTQmB1zpdELUotQ",
-    "Singleton|ART Risk": "https://su007.share-na2.hsforms.com/2PNn5SqQaQ0G6K1Nmd27N-w",
-    "Singleton|Whillock": "https://su007.share-na2.hsforms.com/23qCzBemDTdaaBbqtCL9FGw",
-    "Split Embryo|IFI": "https://su007.share-na2.hsforms.com/24KFWvU2wTJyvStppFD3mGg",
-    "Split Embryo|ART Risk": "https://su007.share-na2.hsforms.com/29d-T54XVSKOVCz-azMGsqg",
-    "Split Embryo|Whillock": "https://su007.share-na2.hsforms.com/2XpfBqVzGQ0yNCLbTag-xgQ"
+    singleton: "https://su007.share-na2.hsforms.com/2PXNvN9ySTQmB1zpdELUotQ",
+    split: "https://su007.share-na2.hsforms.com/24KFWvU2wTJyvStppFD3mGg"
   };
 
   // -------- Helpers --------
-  const money = (n) =>
-    "$" + Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  function fmt(n) {
+    return "$" + Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function fmtWhole(n) {
+    return "$" + Number(n).toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  }
 
   // Fuzzy match score, per spec
   function scoreMatch(query, target) {
@@ -919,8 +930,7 @@
   // -------- State --------
   const state = {
     agency: null,
-    policy: null,
-    carrier: ""
+    policy: null
   };
 
   // -------- DOM --------
@@ -937,7 +947,6 @@
   const selectorCard = document.getElementById("selector-card");
   const btnSingleton = document.getElementById("btn-singleton");
   const btnSplit = document.getElementById("btn-split");
-  const carrierSelect = document.getElementById("carrier");
   const openBtn = document.getElementById("open-form");
 
   // -------- Behavior --------
@@ -947,11 +956,11 @@
       .map(
         (r) => `
           <tr>
-            <td>${money(r[0])}</td>
-            <td>${money(r[1])}</td>
-            <td>${money(r[2])}</td>
-            <td>${money(r[3])}</td>
-            <td class="total">${money(r[4])}</td>
+            <td>${fmtWhole(r[0])}</td>
+            <td>${fmtWhole(r[1])}</td>
+            <td>${fmtWhole(r[2])}</td>
+            <td>${fmt(r[3])}</td>
+            <td class="total">${fmt(r[4])}</td>
           </tr>
         `
       )
@@ -1016,28 +1025,22 @@
 
   function selectPolicy(policy) {
     state.policy = policy;
-    btnSingleton.classList.toggle("active", policy === "Singleton");
-    btnSplit.classList.toggle("active", policy === "Split Embryo");
+    btnSingleton.classList.toggle("active", policy === "singleton");
+    btnSplit.classList.toggle("active", policy === "split");
     updateOpenButton();
   }
 
-  btnSingleton.addEventListener("click", () => selectPolicy("Singleton"));
-  btnSplit.addEventListener("click", () => selectPolicy("Split Embryo"));
-
-  carrierSelect.addEventListener("change", () => {
-    state.carrier = carrierSelect.value;
-    updateOpenButton();
-  });
+  btnSingleton.addEventListener("click", () => selectPolicy("singleton"));
+  btnSplit.addEventListener("click", () => selectPolicy("split"));
 
   function updateOpenButton() {
-    const ready = !!state.agency && !!state.policy && !!state.carrier;
+    const ready = !!state.agency && !!state.policy;
     openBtn.disabled = !ready;
   }
 
   openBtn.addEventListener("click", () => {
     if (openBtn.disabled) return;
-    const key = `${state.policy}|${state.carrier}`;
-    const url = forms[key];
+    const url = forms[state.policy];
     if (url) window.open(url, "_blank", "noopener,noreferrer");
   });
 </script>
