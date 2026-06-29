@@ -1855,7 +1855,7 @@
       <div class="broker-badge">IFI</div>
       <h1>Newborn Medical Contractual<br><em>Liability Insurance Portal</em></h1>
       <div class="header-rule" aria-hidden="true"></div>
-      <p class="subtitle">Enter your agency name and press Enter to retrieve your agency code, review your issuing-state rates, and open the correct application form.</p>
+      <p class="subtitle" id="subtitle">Enter your agency name and press Enter to retrieve your agency code, review your issuing-state rates, and open the correct application form.</p>
     </div>
   </header>
 
@@ -1866,9 +1866,9 @@
       <div class="new-agency-notice">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         <span>
-          Not an approved agency yet? Please complete the
-          <a href="https://share-na2.hsforms.com/2XRnyEcg8TuWMGCM1zsfaVQsu007" target="_blank">New Agency / Entity Set-Up Form</a>
-          to begin your approval process.
+          <span id="notice-pre">Not an approved agency yet? Please complete the</span>
+          <a href="https://share-na2.hsforms.com/2XRnyEcg8TuWMGCM1zsfaVQsu007" target="_blank" id="notice-link">New Agency / Entity Set-Up Form</a>
+          <span id="notice-post">to begin your approval process.</span>
         </span>
       </div>
       <div class="search-wrap">
@@ -2079,13 +2079,13 @@
             <span class="box-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="10" height="18" rx="1"/><path d="M14 9h5a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-5"/><path d="M8 7h2M8 11h2M8 15h2"/></svg>
             </span>
-            From the Agency
+            <span id="box-agency-heading">From the Agency</span>
           </h4>
           <ul>
-            <li>Agency Contact First Name</li>
-            <li>Agency Contact Last Name</li>
-            <li>Agency Contact Email Address</li>
-            <li>Agency Contact Phone Number</li>
+            <li id="box-agency-li1">Agency Contact First Name</li>
+            <li id="box-agency-li2">Agency Contact Last Name</li>
+            <li id="box-agency-li3">Agency Contact Email Address</li>
+            <li id="box-agency-li4">Agency Contact Phone Number</li>
           </ul>
         </div>
 
@@ -2218,7 +2218,7 @@
           </svg>
           surrogacy@mavericktpa.com
         </a>
-        <span class="footer-note">For agency use only</span>
+        <span class="footer-note" id="footer-note">For agency use only</span>
       </div>
     </div>
     <div class="footer-bottom">
@@ -2602,6 +2602,27 @@
   const guideLabel = document.getElementById("guide-label");
   const guideTitle = document.getElementById("guide-title");
   const agencyCode = document.getElementById("agency-code");
+
+  // Visible labels that contain the standalone word "Agency"/"agency".
+  // Stripped only while SeedTrust is displayed; restored for every other agency.
+  const agencyLabelTargets = [
+    { id: "subtitle", full: "Enter your agency name and press Enter to retrieve your agency code, review your issuing-state rates, and open the correct application form.", stripped: "Enter your name and press Enter to retrieve your code, review your issuing-state rates, and open the correct application form." },
+    { id: "search-label", full: "Surrogacy Agency Lookup", stripped: "Surrogacy Lookup" },
+    { id: "notice-pre", full: "Not an approved agency yet? Please complete the", stripped: "Not an approved yet? Please complete the" },
+    { id: "notice-link", full: "New Agency / Entity Set-Up Form", stripped: "New / Entity Set-Up Form" },
+    { id: "box-agency-heading", full: "From the Agency", stripped: "From the" },
+    { id: "box-agency-li1", full: "Agency Contact First Name", stripped: "Contact First Name" },
+    { id: "box-agency-li2", full: "Agency Contact Last Name", stripped: "Contact Last Name" },
+    { id: "box-agency-li3", full: "Agency Contact Email Address", stripped: "Contact Email Address" },
+    { id: "box-agency-li4", full: "Agency Contact Phone Number", stripped: "Contact Phone Number" },
+    { id: "footer-note", full: "For agency use only", stripped: "For use only" },
+  ].map((t) => ({ el: document.getElementById(t.id), full: t.full, stripped: t.stripped }));
+
+  function applyAgencyLabels(strip) {
+    for (const t of agencyLabelTargets) {
+      if (t.el) t.el.textContent = strip ? t.stripped : t.full;
+    }
+  }
   const metaLine = document.getElementById("meta-line");
   const reminderText = document.getElementById("reminder-text");
   const ratesCard = document.getElementById("rates-card");
@@ -2703,6 +2724,7 @@
     const stateFull = stateNames[agency.state] || agency.state;
 
     const hideAgencyWord = agency.id === "SeedTrust";
+    applyAgencyLabels(hideAgencyWord);
     greetingEyebrow.textContent = hideAgencyWord ? "Verified" : "Agency Verified";
     greetingCodeLabel.textContent = hideAgencyWord ? "Code" : "Agency Code";
     guideLabel.textContent = hideAgencyWord ? "Resource" : "Agency Resource";
@@ -2732,6 +2754,7 @@
 
   function showError() {
     state.agency = null;
+    applyAgencyLabels(false);
     errorCard.classList.remove("hidden");
     greetingCard.classList.add("hidden");
     ratesCard.classList.add("hidden");
