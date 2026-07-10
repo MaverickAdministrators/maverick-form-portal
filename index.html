@@ -2391,7 +2391,11 @@
     {name:"Ivy Surrogacy", id:"SRIVY2888", state:"CA"},
     {name:"NW Surrogacy Center", id:"SRNWS6626", state:"FL"},
     {name:"US Surrogacy LLC", id:"SRUSS6926", state:"NV"},
-    { name: "SeedTrust", id: "SeedTrust", state: "FL", form: "https://su007.share-na2.hsforms.com/2BXyKg_7HS7e83YlIV8o5fw" },
+    { name: "SeedTrust", id: "SeedTrust", state: "FL", form: {
+        singleton: "https://su007.share-na2.hsforms.com/2BXyKg_7HS7e83YlIV8o5fw",
+        singleton_pre_transfer: "https://su007.share-na2.hsforms.com/2BXyKg_7HS7e83YlIV8o5fw",
+        split: "https://share-na2.hsforms.com/21FvmP93VSU2qJCB8E0u9zwsu007"
+      } },
     { name: "Test Agency", id: "TEST2026", state: "CA" },
   ];
 
@@ -2963,7 +2967,7 @@
 
   openBtn.addEventListener("click", () => {
     if (openBtn.disabled) return;
-    const url = (state.agency && state.agency.form) || forms[state.policy];
+    const url = (state.agency && state.agency.form && state.agency.form[state.policy]) || forms[state.policy];
     if (url) window.open(url, "_blank", "noopener,noreferrer");
   });
 
