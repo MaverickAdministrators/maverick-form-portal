@@ -1194,7 +1194,7 @@
   .policy-band-inner {
     position: relative;
     z-index: 1;
-    max-width: 780px;
+    max-width: 1080px;
     margin: 0 auto;
     text-align: center;
   }
@@ -1249,10 +1249,10 @@
 
   .policy-options {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     gap: 16px;
     margin-bottom: 8px;
-    text-align: left;
+    text-align: center;
   }
 
   .policy-card {
@@ -1283,7 +1283,7 @@
   .policy-card-head {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 12px;
     margin-bottom: 8px;
   }
@@ -1297,7 +1297,9 @@
   }
 
   .policy-card-check {
-    flex: 0 0 auto;
+    position: absolute;
+    top: 22px;
+    right: 22px;
     display: grid;
     place-items: center;
     width: 26px;
@@ -1321,6 +1323,7 @@
     font-size: 13px;
     line-height: 1.55;
     color: rgba(229, 234, 242, 0.66);
+    text-align: center;
   }
 
   .policy-card.active {
@@ -2275,6 +2278,15 @@
           </span>
           <span class="policy-card-desc">A single embryo is transferred — coverage for one expected baby.</span>
         </button>
+        <button type="button" class="policy-card" data-policy="Singleton Pre-Transfer" id="btn-pre-transfer" role="radio" aria-checked="false">
+          <span class="policy-card-head">
+            <span class="policy-card-name">Singleton Pre-Transfer</span>
+            <span class="policy-card-check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+            </span>
+          </span>
+          <span class="policy-card-desc">For a singleton applied for pre-transfer — the Estimated Date of Embryo Transfer is still in the future.</span>
+        </button>
         <button type="button" class="policy-card" data-policy="Split Embryo" id="btn-split" role="radio" aria-checked="false">
           <span class="policy-card-head">
             <span class="policy-card-name">Split Embryo</span>
@@ -2336,7 +2348,7 @@
     { name: "Simple Surrogacy, LLC", id: "SRSMP8264", state: "FL" },
     { name: "Extraordinary Conceptions", id: "SREXC2244", state: "CA" },
     { name: "West Coast Surrogacy", id: "SRWCS9823", state: "CA" },
-    { name: "Surrogacy Is LLC", id: "SRSIL3265", state: "CA" },
+    { name: "Surrogacy Is LLC", id: "SRSIL3265", state: "GA" },
     { name: "SurrogateFirst", id: "SRSRF5654", state: "CA" },
     { name: "IARC Surrogacy", id: "SRIAR7755", state: "FL" },
     { name: "Gestacy LLC", id: "SRGST9083", state: "CA" },
@@ -2377,7 +2389,18 @@
     { name:"Shining Light Baby", id:"SRSLB0604", state:"IL"},
     {name:"Same Love Surrogacy", id:"SRLOV0605", state:"CA"},
     {name:"Ivy Surrogacy", id:"SRIVY2888", state:"CA"},
-    { name: "SeedTrust", id: "SeedTrust", state: "FL", form: "https://su007.share-na2.hsforms.com/2BXyKg_7HS7e83YlIV8o5fw" },
+    {name:"NW Surrogacy Center", id:"SRNWS6626", state:"FL"},
+    {name:"Worldwide Surrogacy Specialist", id:"SRWSS7426", state:"CT"},
+    {name:"US Surrogacy LLC", id:"SRUSS6926", state:"NV"},
+    {name:"Conceptual Options, LLC", id:"SRCOP2326", state:"CA"},
+    {name:"Advocates For Surrogacy", id:"SRAFS7826", state:"FL"},
+    {name:"GSMoms", id:"SRGSM8326", state:"CA"},
+    {name:"A Host of Possibilities", id:"SRAHP8626", state:"ID"},
+    { name: "SeedTrust", id: "SeedTrust", state: "FL", form: {
+        singleton: "https://su007.share-na2.hsforms.com/2BXyKg_7HS7e83YlIV8o5fw",
+        singleton_pre_transfer: "https://share-na2.hsforms.com/2D0ItscVUTOmZKPm6dyNNTgsu007",
+        split: "https://share-na2.hsforms.com/21FvmP93VSU2qJCB8E0u9zwsu007"
+      } },
     { name: "Test Agency", id: "TEST2026", state: "CA" },
   ];
 
@@ -2622,6 +2645,7 @@
 
   const forms = {
     singleton: "https://su007.share-na2.hsforms.com/2PXNvN9ySTQmB1zpdELUotQ",
+    singleton_pre_transfer: "https://share-na2.hsforms.com/2fgNkX27cRlOa5Cc0S7i1Ygsu007",
     split: "https://su007.share-na2.hsforms.com/24KFWvU2wTJyvStppFD3mGg"
   };
 
@@ -2733,6 +2757,7 @@
   const specimenCard = document.getElementById("specimen-card");
   const policyBand = document.getElementById("policy-band");
   const btnSingleton = document.getElementById("btn-singleton");
+  const btnPreTransfer = document.getElementById("btn-pre-transfer");
   const btnSplit = document.getElementById("btn-split");
   const openBtn = document.getElementById("open-form");
 
@@ -2897,15 +2922,17 @@
 
   function selectPolicy(policy) {
     state.policy = policy;
-    const isSingle = policy === "singleton";
-    btnSingleton.classList.toggle("active", isSingle);
-    btnSplit.classList.toggle("active", !isSingle);
-    btnSingleton.setAttribute("aria-checked", isSingle ? "true" : "false");
-    btnSplit.setAttribute("aria-checked", !isSingle ? "true" : "false");
+    btnSingleton.classList.toggle("active", policy === "singleton");
+    btnPreTransfer.classList.toggle("active", policy === "singleton_pre_transfer");
+    btnSplit.classList.toggle("active", policy === "split");
+    btnSingleton.setAttribute("aria-checked", policy === "singleton" ? "true" : "false");
+    btnPreTransfer.setAttribute("aria-checked", policy === "singleton_pre_transfer" ? "true" : "false");
+    btnSplit.setAttribute("aria-checked", policy === "split" ? "true" : "false");
     updateOpenButton();
   }
 
   btnSingleton.addEventListener("click", () => selectPolicy("singleton"));
+  btnPreTransfer.addEventListener("click", () => selectPolicy("singleton_pre_transfer"));
   btnSplit.addEventListener("click", () => selectPolicy("split"));
 
   // -------- Policy Specimens --------
@@ -2945,7 +2972,7 @@
 
   openBtn.addEventListener("click", () => {
     if (openBtn.disabled) return;
-    const url = (state.agency && state.agency.form) || forms[state.policy];
+    const url = (state.agency && state.agency.form && state.agency.form[state.policy]) || forms[state.policy];
     if (url) window.open(url, "_blank", "noopener,noreferrer");
   });
 
